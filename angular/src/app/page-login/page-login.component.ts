@@ -8,7 +8,7 @@ import { ApiService } from '../api.service';
 })
 export class PageLoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api:ApiService) { }
 
   ngOnInit(): void {
   }
