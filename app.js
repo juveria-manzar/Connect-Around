@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const passport = require('passport')
-
+require('./mvc/models/db')
 const indexRouter = require('./mvc/routes/index');
 const usersRouter = require('./mvc/routes/users');
 
