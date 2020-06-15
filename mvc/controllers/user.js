@@ -2,7 +2,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-const registerUser = function({ body }, res, next) {
+const registerUser = function({ body }, res) {
     if (!Object.values(body).every((val) => val)) {
         return res.send({ message: "All fields are required." })
     }
@@ -42,7 +42,6 @@ const loginUser = function(req, res) {
         }
     })(req, res)
 }
-
 
 module.exports = {
     registerUser,
