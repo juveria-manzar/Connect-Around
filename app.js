@@ -6,6 +6,7 @@ const logger = require('morgan');
 
 const passport = require('passport')
 require('./mvc/models/db')
+
 const indexRouter = require('./mvc/routes/index');
 const usersRouter = require('./mvc/routes/users');
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(passport.initialize())
 
 app.use('/', (req, res, next) => {
