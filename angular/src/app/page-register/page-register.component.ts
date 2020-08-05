@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
+import { LocalStorageService } from '../local-storage.service';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-page-register',
@@ -9,7 +11,11 @@ import { ApiService } from '../api.service';
 
 export class PageRegisterComponent implements OnInit {
 
-  constructor(private api:ApiService) { }
+  constructor(
+    private api:ApiService,
+    private storage:LocalStorageService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
   }
@@ -58,10 +64,12 @@ export class PageRegisterComponent implements OnInit {
     }
 
     this.api.makeRequest(requestObject).then((val)=>{
-      if(val.message){
-        this.formError=val.message
+      if(val.token){
+        this.storage.setToken(val.token)
+        this.router.navigate(['/'])
+        return  
       }
-      console.log(val)
+      if(val.message){this.formError=val.message}
     })
   }
 }
