@@ -25,7 +25,8 @@ const registerUser = function({ body }, res) {
             }
             return res.json({ message: "Something went wrong." });
         } else {
-            res.status(201).json({ message: "Created User", user: newUser })
+            const token =user.getJwt()
+            res.status(201).json({token})
         }
     })
 }
@@ -41,7 +42,8 @@ const loginUser = function(req, res) {
             return res.status(404).json(err)
         }
         if (user) {
-            return res.status(201).json({ message: "Logged In." })
+            const token=user.getJwt()
+            res.status(201).json({token})
         } else {
             return res.status(401).json(info)
         }
