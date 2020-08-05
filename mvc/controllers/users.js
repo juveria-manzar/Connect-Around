@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 const registerUser = function({ body }, res) {
+
     if (!Object.values(body).every((val) => val)) {
         return res.send({ message: "All fields are required." })
     }
@@ -19,7 +20,10 @@ const registerUser = function({ body }, res) {
 
     user.save((err, newUser) => {
         if (err) {
-            res.status(404).json(err)
+            if(err.errmsg && err.errmsg.includes("duplicate key error") && err.errmsg.includes("email")) {
+                return res.json({ message: "The provided email is already registered."} );
+            }
+            return res.json({ message: "Something went wrong." });
         } else {
             res.status(201).json({ message: "Created User", user: newUser })
         }
@@ -27,7 +31,8 @@ const registerUser = function({ body }, res) {
 }
 
 const loginUser = function(req, res) {
-    if (!req.email || req.password) {
+
+    if (!req.body.email || !req.body.password) {
         return res.status(400).json({ message: "All fields are required" })
     }
 
@@ -40,7 +45,7 @@ const loginUser = function(req, res) {
         } else {
             return res.status(401).json(info)
         }
-    })(req, res)
+    })(req,res)
 }
 
 module.exports = {

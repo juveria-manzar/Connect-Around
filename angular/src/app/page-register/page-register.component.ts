@@ -6,6 +6,7 @@ import { ApiService } from '../api.service';
   templateUrl: './page-register.component.html',
   styleUrls: ['./page-register.component.css']
 })
+
 export class PageRegisterComponent implements OnInit {
 
   constructor(private api:ApiService) { }
@@ -24,7 +25,9 @@ export class PageRegisterComponent implements OnInit {
   }
 
   public formSubmit(){
+
     this.formError="";
+
     if(
       !this.credentials.first_name||
       !this.credentials.last_name||
@@ -34,8 +37,6 @@ export class PageRegisterComponent implements OnInit {
     ){
       return this.formError="All fields are required!"
     }
-    console.log('Form Submit');
-    console.log(this.credentials);
     // var re = new RegExp(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);
     // if (!re.test(this.credentials.email)) {
     //     return this.formError = "Please enter a valid email address.";
@@ -44,6 +45,8 @@ export class PageRegisterComponent implements OnInit {
     if(this.credentials.password !== this.credentials.password_confirm) {
         return this.formError = "Passwords don't match."
     }
+
+
     this.register();
   }
 
@@ -55,6 +58,9 @@ export class PageRegisterComponent implements OnInit {
     }
 
     this.api.makeRequest(requestObject).then((val)=>{
+      if(val.message){
+        this.formError=val.message
+      }
       console.log(val)
     })
   }
