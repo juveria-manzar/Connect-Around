@@ -41,16 +41,19 @@ const loginUser = function(req, res) {
         if (err) {
             return res.status(404).json(err)
         }
-        if (user) {
-            const token=user.getJwt()
-            res.status(201).json({token})
-        } else {
-            return res.status(401).json(info)
-        }
+        if(user) {
+            const token = user.getJwt();
+            res.status(201).json({token});
+        } else { res.json(info); }
     })(req,res)
+}
+
+const generateFeed=function(req,res){
+    res.status(200).json({message:"generating posts for user feed"})
 }
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    generateFeed
 }
