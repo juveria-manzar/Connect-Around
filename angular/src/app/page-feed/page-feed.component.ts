@@ -22,7 +22,6 @@ export class PageFeedComponent implements OnInit {
       authorize:true
     }
     this.api.makeRequest(requestObject).then((val)=>{
-      console.log('helllooo')
       console.log(val)
     })
   }

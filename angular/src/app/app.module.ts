@@ -16,6 +16,7 @@ import { ResultRequestComponent } from './result-request/result-request.componen
 import { PostComponent } from './post/post.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormBgComponent } from './form-bg/form-bg.component';
+import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormBgComponent } from './form-bg/form-bg.component';
     ResultRequestComponent,
     PostComponent,
     SidebarComponent,
-    FormBgComponent
+    FormBgComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,
