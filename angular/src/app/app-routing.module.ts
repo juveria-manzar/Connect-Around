@@ -51,7 +51,7 @@ const routes: Routes = [
     data:{loggedIn:true}
   },
   {
-    path:'freind-requests',
+    path:'friend-requests',
     component:PageFriendRequestsComponent,
     canActivate:[AuthService],
     data:{loggedIn:true}
