@@ -4,6 +4,55 @@ const jwt=require('jsonwebtoken')
 
 const salt = crypto.randomBytes(64).toString('hex')
 
+const commentSchema=new mongoose.Schema({
+    commenter_name:{
+        type: String,
+        required: true
+    },
+    commenter_id:{
+        type: String,
+        required: true
+    },
+    commenter_content:{
+        type: String,
+        required: true
+    },
+});
+
+const postSchema=new mongoose.Schema({
+    content:{
+        type: String,
+        required: true
+    },
+    data:{
+        type:Date,
+        default:Date.now
+    },
+    theme:{
+        type:String,
+        default:"primary"
+    },
+    likes:{
+        type:Number,
+        default:0
+    },
+    comments:{
+        type:[commentSchema],
+        default:[]
+    }
+});
+
+const messageSchema=new mongoose.Schema({
+    form_id:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    content:{
+        messenger:String,
+        message:String
+    }
+});
 
 const userSchema = new mongoose.Schema({
     firstname: {
@@ -21,6 +70,17 @@ const userSchema = new mongoose.Schema({
     },
     password: String,
     salt: String,
+    friends:[String],
+    friend_requests:[String],
+    besties:[String],
+    enemies:[String],
+    posts:[postSchema],
+    messages:[messageSchema],
+    notifications:[String],
+    profile_image:String,
+    new_message_notifications:{type:Number,default:0},
+    new_notifications:{type:Number,default:0}
+
 })
 
 userSchema.methods.setPassword = function(password) {
@@ -40,3 +100,6 @@ userSchema.methods.getJwt=function(){
 }
 
 mongoose.model('User', userSchema);
+mongoose.model('Comment', commentSchema);
+mongoose.model('Post', postSchema);
+mongoose.model('Message', messageSchema);
