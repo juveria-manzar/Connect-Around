@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import  {ActivatedRoute} from '@angular/router'
 
 @Component({
   selector: 'app-page-searches',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageSearchesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private api:ApiService,
+    private route:ActivatedRoute
+
+  ) { }
 
   ngOnInit(): void {
+    console.log(this.route.snapshot.params)
   }
-
+  
 }

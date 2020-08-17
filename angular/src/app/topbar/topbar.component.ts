@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {AuthService} from '../auth.service'
 
 @Component({
@@ -8,9 +9,16 @@ import {AuthService} from '../auth.service'
 })
 export class TopbarComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor(
+    public auth: AuthService,
+    public router:Router
+    ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  private query:String="";
+
+  public searchForFriends(){
+    this.router.navigate(['/search-results',{query:this.query}])
   }
-
 }
